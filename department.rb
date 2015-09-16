@@ -1,22 +1,26 @@
-class Department
+require 'active_record'
 
-  attr_reader :name, :employees
+ActiveRecord::Base.establish_connection(
+  adapter: 'sqlite3',
+  database: 'db.sqlite3'
+)
 
-  def initialize(name)
-    @name = name
-    @employees = []
-  end
+class Department < ActiveRecord::Base
+  has_many :employees
 
-  def add_employee(employee)
-    @employees << employee
+
+
+  def add_employee(e)
+    e.update(department_id: self.id)
   end
 
   def total_salary
-    @employees.reduce(0){|sum, employee| sum + employee.salary}
+    employees.sum(:salary)
   end
 
   def give_raise(total_amount)
-    getting_raise = @employees.select {|e| e.satisfactory?}
+    getting_raise = self.employees.where(satisfactory: true)
     getting_raise.each {|e| e.give_raise(total_amount / getting_raise.length)}
+
   end
 end

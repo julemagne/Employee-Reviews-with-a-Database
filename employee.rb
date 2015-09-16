@@ -1,32 +1,27 @@
-class Employee
+require 'active_record'
 
-  attr_reader :name, :salary
+ActiveRecord::Base.establish_connection(
+  adapter: 'sqlite3',
+  database: 'db.sqlite3'
+)
 
-  def initialize(name:, salary:, email: nil, phone: nil)
-    @name = name
-    @salary = salary
-    @email = email
-    @phone = phone
-    @reviews = []
-    @satisfactory = true
-  end
+class Employee < ActiveRecord::Base
+  belongs_to :department
 
   def recent_review
     @reviews.last
   end
 
   def satisfactory?
-    @satisfactory
+    self.satisfactory
   end
 
   def give_raise(amount)
-    @salary += amount
+    self.salary += amount
   end
 
-  def give_review(review)
-    @reviews << review
-    assess_performance
-    true
+  def give_review(r)
+    self.review = r
   end
 
   def assess_performance
