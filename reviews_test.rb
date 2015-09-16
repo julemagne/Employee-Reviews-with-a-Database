@@ -79,9 +79,9 @@ class ReviewsTest < Minitest::Test
     development.add_employee(employee)
     development.add_employee(employee2)
     development.give_raise(30000)
-    assert_equal 95000, employee.salary
-    assert_equal 165000, employee2.salary
-    assert_equal 20000, employee3.salary
+    assert_equal 95000, employee.reload.salary
+    assert_equal 165000, employee2.reload.salary
+    assert_equal 20000, employee3.reload.salary
   end
 
   # def test_only_satisfactory_employees_get_raises

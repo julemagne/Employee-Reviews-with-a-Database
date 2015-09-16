@@ -17,7 +17,7 @@ class Employee < ActiveRecord::Base
   end
 
   def give_raise(amount)
-    self.salary += amount
+    self.update(salary: salary + amount)
   end
 
   def give_review(r)
