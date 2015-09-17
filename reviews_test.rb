@@ -184,4 +184,16 @@ class ReviewsTest < Minitest::Test
 
     assert_equal [employee2, employee], development.employees.sort_by {|e| e.name}
   end
+
+  def test_find_employees_with_above_average_salary
+    employee = Employee.create( name: "Squirtle", email: "jdark@example.com", phone: "515-888-4821", salary: 80000)
+    employee2 = Employee.create( name: "Charmander", email: "lunk@example.com", phone: "882-329-3843", salary: 150000)
+    employee3 = Employee.create( name: "Bulbasaur", email: "sanic@example.com", phone: "333-444-5555", salary: 20000)
+    development = Department.create(name: "Development")
+    development.add_employee(employee)
+    development.add_employee(employee2)
+    development.add_employee(employee3)
+    # 250000/3 = 83333.3
+    assert_equal [employee2], development.find_employees_with_above_average_salary
+  end
 end

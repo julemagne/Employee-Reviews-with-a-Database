@@ -36,4 +36,10 @@ class Department < ActiveRecord::Base
     sorted[0]
   end
 
+  def find_employees_with_above_average_salary
+    average_salary = (self.employees.sum(:salary)/self.employees.count)
+    sorted = self.employees.sort_by { |e| e.salary}
+    sorted.delete_if{|e| e.salary<=average_salary}
+    sorted
+  end
 end
