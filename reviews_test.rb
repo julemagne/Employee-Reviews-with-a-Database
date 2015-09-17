@@ -172,4 +172,16 @@ class ReviewsTest < Minitest::Test
 
     assert_equal employee, development.find_employee_with_smallest_salary
   end
+
+  def test_all_department_employees_alphabetically
+    employee = Employee.create( name: "Julie", email: "jdark@example.com", phone: "515-888-4821", salary: 80000)
+    employee.give_review("bad negative less")
+    employee2 = Employee.create( name: "Angela", email: "lunk@example.com", phone: "882-329-3843", salary: 150000)
+    employee2.give_review("bad negative less")
+    development = Department.create(name: "Development")
+    development.add_employee(employee)
+    development.add_employee(employee2)
+
+    assert_equal [employee2, employee], development.employees.sort_by {|e| e.name}
+  end
 end
