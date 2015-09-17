@@ -49,4 +49,8 @@ class Department < ActiveRecord::Base
     p_array
   end
 
+  def find_populous_department
+    dep_id_arr = self.employees.count(:department_id).sort!
+    dep_id_arr[0]
+  end
 end

@@ -216,4 +216,26 @@ class ReviewsTest < Minitest::Test
 
     assert_equal [employee, employee2], development.collect_the_palindromes
   end
+
+  def test_department_most_employees
+    employee = Employee.create( name: "A", email: "jdark@example.com", phone: "515-888-4821", salary: 80000)
+    employee2 = Employee.create( name: "Bassab", email: "lunk@example.com", phone: "882-329-3843", salary: 150000)
+    employee3 = Employee.create( name: "Lamar", email: "sanic@example.com", phone: "333-444-5555", salary: 20000)
+    development = Department.create(name: "Development")
+    development.add_employee(employee)
+    development.add_employee(employee2)
+    development.add_employee(employee3)
+    employee4 = Employee.create(name: "Mommy Fortuna", email: "jdark@example.com", phone: "515-888-4821", salary: 85000)
+    management = Department.create(name: "Management")
+    management.add_employee(employee4)
+
+    dep_id_arr = Employee.count(:department_id).sort
+    populous_department =dep_id_arr[0]
+
+    assert_equal development, populous_department
+    # ObjectSpace.garbage_collect
+    # assert_equal 2, ObjectSpace.each_object(Department).count
+    # assert_equal 4, ObjectSpace.each_object(Employee).count
+    # Department.each do self.employees.count end
+  end
 end
