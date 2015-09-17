@@ -8,8 +8,6 @@ ActiveRecord::Base.establish_connection(
 class Department < ActiveRecord::Base
   has_many :employees
 
-
-
   def add_employee(e)
     e.update(department_id: self.id)
   end
@@ -21,6 +19,21 @@ class Department < ActiveRecord::Base
   def give_raise(total_amount)
     getting_raise = self.employees.where(satisfactory: true)
     getting_raise.each {|e| e.give_raise(total_amount / getting_raise.length)}
-
   end
+
+  def find_smallest_salary
+    salary_array = []
+    self.employees.each do |e|
+    salary_array << e.salary
+      end
+    salary_array.sort!
+    salary_array[0]
+    #Returns smallest salary in department...not employee.
+  end
+
+  def find_employee_with_smallest_salary
+    sorted = self.employees.sort_by { |e| e.salary}
+    sorted[0]
+  end
+
 end

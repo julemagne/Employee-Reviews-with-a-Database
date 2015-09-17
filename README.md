@@ -1,5 +1,7 @@
 # Employee Reviews with a Database
 
+ERD at https://www.lucidchart.com/invitations/accept/3143423e-d66f-4483-be79-3c0dfd255923
+
 Using TDD, this code creates classes of Departments and Employees, then uses Ruby and SQL to populate databases with the information. You can use this code to:
 
 -Return the total number of employees in a department.

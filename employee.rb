@@ -8,8 +8,6 @@ ActiveRecord::Base.establish_connection(
 class Employee < ActiveRecord::Base
   belongs_to :department
 
-
-
   def satisfactory?
     self.satisfactory
   end
@@ -30,7 +28,6 @@ class Employee < ActiveRecord::Base
     recent_review = self.review
     count_good = self.review.scan(good_terms).length
     count_bad = self.review.scan(bad_terms).length
-
     self.update(satisfactory: (count_good - count_bad > 0))
   end
 
