@@ -8,9 +8,7 @@ ActiveRecord::Base.establish_connection(
 class Employee < ActiveRecord::Base
   belongs_to :department
 
-  def recent_review
-    @reviews.last
-  end
+
 
   def satisfactory?
     self.satisfactory
@@ -21,7 +19,7 @@ class Employee < ActiveRecord::Base
   end
 
   def give_review(r)
-    self.review = r
+    self.update(review: r)
   end
 
   def assess_performance
@@ -29,10 +27,11 @@ class Employee < ActiveRecord::Base
     bad_terms = [/\broom\bfor\bimprovement/i, /\boccur(ed)?\b/i, /not/i, /\bnegative\b/i, /less/i, /\bun[a-z]?{4,9}\b/i, /\b((inter)|e|(dis))?rupt[ivnge]{0,3}\b/i]
     good_terms = Regexp.union(good_terms)
     bad_terms = Regexp.union(bad_terms)
+    recent_review = self.review
+    count_good = self.review.scan(good_terms).length
+    count_bad = self.review.scan(bad_terms).length
 
-    count_good = @reviews.last.scan(good_terms).length
-    count_bad = @reviews.last.scan(bad_terms).length
-
-    @satisfactory = (count_good - count_bad > 0)
+    self.update(satisfactory: (count_good - count_bad > 0))
   end
+
 end

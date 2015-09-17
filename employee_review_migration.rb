@@ -13,7 +13,7 @@ class EmployeeReviewMigration < ActiveRecord::Migration
       t.decimal :salary
       t.string :email
       t.string :phone
-      t.text :review
+      t.text :review, default: "good"
       t.boolean :satisfactory, default: true
       t.integer :department_id
     end
