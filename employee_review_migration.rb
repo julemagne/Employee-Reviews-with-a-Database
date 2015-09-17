@@ -16,6 +16,7 @@ class EmployeeReviewMigration < ActiveRecord::Migration
       t.text :review, default: "good"
       t.boolean :satisfactory, default: true
       t.integer :department_id
+      t.boolean :palindrome, default: false
     end
     create_table :departments do |t|
       t.string :name

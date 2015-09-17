@@ -42,4 +42,11 @@ class Department < ActiveRecord::Base
     sorted.delete_if{|e| e.salary<=average_salary}
     sorted
   end
+
+  def collect_the_palindromes
+    p_array = self.employees.each{ |e| e.palindrome_check}
+    p_array.delete_if{|e| e.palindrome==false}
+    p_array
+  end
+
 end

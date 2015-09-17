@@ -196,4 +196,24 @@ class ReviewsTest < Minitest::Test
     # 250000/3 = 83333.3
     assert_equal [employee2], development.find_employees_with_above_average_salary
   end
+
+  def test_palindrome_employee_names
+    employee = Employee.create( name: "A", email: "jdark@example.com", phone: "515-888-4821", salary: 80000)
+    employee2 = Employee.create( name: "Bassab", email: "lunk@example.com", phone: "882-329-3843", salary: 150000)
+    employee3 = Employee.create( name: "Lamar", email: "sanic@example.com", phone: "333-444-5555", salary: 20000)
+    development = Department.create(name: "Development")
+    development.add_employee(employee)
+    development.add_employee(employee2)
+    development.add_employee(employee3)
+    # employee.palindrome_check
+    # employee2.palindrome_check
+    # employee3.palindrome_check
+    #
+    # assert_equal true, employee.palindrome
+    # assert_equal true, employee2.palindrome
+    # assert_equal false, employee3.palindrome
+    # My palindrome methods work!
+
+    assert_equal [employee, employee2], development.collect_the_palindromes
+  end
 end

@@ -31,4 +31,8 @@ class Employee < ActiveRecord::Base
     self.update(satisfactory: (count_good - count_bad > 0))
   end
 
+  def palindrome_check
+    self.update(palindrome: true) if self.name.length < 2 || self.name.downcase.reverse == self.name.downcase
+  end
+
 end
